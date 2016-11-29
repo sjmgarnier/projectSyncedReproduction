@@ -38,7 +38,7 @@ where $M$ represents the average of the periodical wave, $P$ its period, and $A$
 its amplitude. The amplitude $A$ is relative to the average $M$ of the periodical 
 wave. When $A = 1$ the minimum value of the wave is 0 and the maximum is $2 M$. 
 When $A = 0$ the wave is flat (i.e. its minimum and maximum values are both 
-equal to the average of the wave). The exponent $e$ control the degree of 
+equal to the average of the wave). The exponent $e$ controls the degree of 
 "squarity" of the wave. Positive values of $e$ return a more square-like wave 
 while negative values return a more sine-like wave. This allows us to control 
 how smooth the reproductive cycle is, in other words, how gradual or abrupt the 
