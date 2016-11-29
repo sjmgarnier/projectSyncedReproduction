@@ -2,12 +2,12 @@
 
 ---
 
-**Authors: ** Simon Garnier^1^ & Daniel Kronauer^2^
+**Authors: ** Simon Garnier<sup>1</sup> & Daniel Kronauer<sup>2</sup>
 
-^1^Department of Biological Sciences, New Jersey Institute of Technology, Newark, 
+<sup>1</sup>Department of Biological Sciences, New Jersey Institute of Technology, Newark, 
 NJ 07102, USA; garnier@njit.edu
 
-^2^Laboratory of Social Evolution and Behavior, The Rockefeller University, New 
+<sup>2</sup>Laboratory of Social Evolution and Behavior, The Rockefeller University, New 
 York, NY 10065, USA; dkronauer@rockefeller.edu
 
 ---
