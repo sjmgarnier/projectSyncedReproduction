@@ -1,0 +1,633 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     21091,        625]
+NotebookOptionsPosition[     19610,        570]
+NotebookOutlinePosition[     19967,        586]
+CellTagsIndexPosition[     19924,        583]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"Remove", "[", "\"\<Global`*\>\"", "]"}]], "Input",
+ CellChangeTimes->{3.6894267284237957`*^9}],
+
+Cell[TextData[StyleBox["Methods", "Section"]], "Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.689424448894541*^9, 3.6894244594250593`*^9}},
+ FormatType->"TextForm"],
+
+Cell[TextData[StyleBox["Modelling colony reproductive strategy", \
+"Subsection"]], "Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.689424483182816*^9, 3.689424495038269*^9}},
+ FormatType->"TextForm"],
+
+Cell[TextData[{
+ StyleBox["The relative number ", "Text"],
+ "l",
+ StyleBox[" of larvae in the colony at time ", "Text"],
+ "t",
+ StyleBox[" is modeled as a function of the form:", "Text"]
+}], "Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.689424507839143*^9, 3.6894245320693407`*^9}},
+ FormatType->"TextForm"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"l", "=", 
+  RowBox[{
+   RowBox[{"M", " ", 
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           RowBox[{"Sqrt", "[", 
+            RowBox[{"10", "^", 
+             RowBox[{"(", 
+              RowBox[{"2", " ", "e"}], ")"}]}], "]"}]}], ")"}], " ", 
+         RowBox[{"Sin", "[", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"2", " ", "\[Pi]", " ", "t"}], ")"}], "/", "P"}], "]"}]}],
+         ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{"1", "+", 
+         RowBox[{"Sqrt", "[", 
+          RowBox[{
+           RowBox[{"10", "^", 
+            RowBox[{"(", 
+             RowBox[{"2", " ", "e"}], ")"}]}], " ", 
+           RowBox[{
+            RowBox[{"Sin", "[", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"2", " ", "\[Pi]", " ", "t"}], ")"}], "/", "P"}], 
+             "]"}], "^", "2"}]}], "]"}]}], ")"}]}]}], ")"}]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "-", "A"}], ")"}], " ", 
+    RowBox[{"(", 
+     RowBox[{"M", "-", 
+      RowBox[{"M", " ", 
+       RowBox[{"(", 
+        RowBox[{"1", "+", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "+", 
+              RowBox[{"Sqrt", "[", 
+               RowBox[{"10", "^", 
+                RowBox[{"(", 
+                 RowBox[{"2", " ", "e"}], ")"}]}], "]"}]}], ")"}], " ", 
+            RowBox[{"Sin", "[", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"2", " ", "\[Pi]", " ", "t"}], ")"}], "/", "P"}], 
+             "]"}]}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{"1", "+", 
+            RowBox[{"Sqrt", "[", 
+             RowBox[{
+              RowBox[{"10", "^", 
+               RowBox[{"(", 
+                RowBox[{"2", " ", "e"}], ")"}]}], " ", 
+              RowBox[{
+               RowBox[{"Sin", "[", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"2", " ", "\[Pi]", " ", "t"}], ")"}], "/", "P"}], 
+                "]"}], "^", "2"}]}], "]"}]}], ")"}]}]}], ")"}]}]}], 
+     ")"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.689424555040187*^9, 3.689424564194735*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"M", " ", 
+   RowBox[{"(", 
+    RowBox[{"1", "+", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "+", 
+         SqrtBox[
+          SuperscriptBox["10", 
+           RowBox[{"2", " ", "e"}]]]}], ")"}], " ", 
+       RowBox[{"Sin", "[", 
+        FractionBox[
+         RowBox[{"2", " ", "\[Pi]", " ", "t"}], "P"], "]"}]}], 
+      RowBox[{"1", "+", 
+       SqrtBox[
+        RowBox[{
+         SuperscriptBox["10", 
+          RowBox[{"2", " ", "e"}]], " ", 
+         SuperscriptBox[
+          RowBox[{"Sin", "[", 
+           FractionBox[
+            RowBox[{"2", " ", "\[Pi]", " ", "t"}], "P"], "]"}], "2"]}]]}]]}], 
+    ")"}]}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"1", "-", "A"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{"M", "-", 
+     RowBox[{"M", " ", 
+      RowBox[{"(", 
+       RowBox[{"1", "+", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "+", 
+            SqrtBox[
+             SuperscriptBox["10", 
+              RowBox[{"2", " ", "e"}]]]}], ")"}], " ", 
+          RowBox[{"Sin", "[", 
+           FractionBox[
+            RowBox[{"2", " ", "\[Pi]", " ", "t"}], "P"], "]"}]}], 
+         RowBox[{"1", "+", 
+          SqrtBox[
+           RowBox[{
+            SuperscriptBox["10", 
+             RowBox[{"2", " ", "e"}]], " ", 
+            SuperscriptBox[
+             RowBox[{"Sin", "[", 
+              FractionBox[
+               RowBox[{"2", " ", "\[Pi]", " ", "t"}], "P"], "]"}], 
+             "2"]}]]}]]}], ")"}]}]}], ")"}]}]}]], "Output",
+ CellChangeTimes->{3.689424570497032*^9, 3.689426152712693*^9, 
+  3.689426629743122*^9, 3.6894267347033253`*^9, 3.689426776456264*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["where ", "Text"],
+ "M",
+ StyleBox[" represents the average of the periodical wave, ", "Text"],
+ "P",
+ StyleBox[" its period, and ", "Text"],
+ "A ",
+ StyleBox["its amplitude. The amplitude ", "Text"],
+ "A",
+ StyleBox[" is relative to the average ", "Text"],
+ "M",
+ StyleBox[" of the periodical wave. When ", "Text"],
+ "A = 1 ",
+ StyleBox["the minimum value of the wave is 0 and the maximum is ", "Text"],
+ "2 M",
+ StyleBox[". When ", "Text"],
+ "A = 0",
+ StyleBox[" the wave is flat (i.e. its minimum and maximum values are both \
+equal to the average of the wave). The exponent ", "Text"],
+ "e",
+ StyleBox[" controls the degree of \"squarity\" of the wave. Positive values \
+of ", "Text"],
+ "e",
+ StyleBox[" return a more square-like wave while negative values return a \
+more sine-like wave. This allows us to control how smooth the reproductive \
+cycle is, in other words, how gradual or abrupt the transitions between brood \
+care and reproductive phases are.\n\nFor the remainder of this study, we will \
+arbitrarily set the value of ", "Text"],
+ "P",
+ StyleBox[", i.e. the length of the reproductive cycle, to ", "Text"],
+ "1",
+ StyleBox[". We will also set the value of ", "Text"],
+ "M",
+ StyleBox[", i.e. the average relative number of larvae in the colony, to ", 
+  "Text"],
+ "0.5",
+ StyleBox[". As a consequence, both the absolute length of the reproductive \
+cycle and the absolute number of larvae a colony raises per reproductive \
+cycle are constant across all comparisons. With ", "Text"],
+ "P = 1",
+ StyleBox[" and ", "Text"],
+ "M = 0.5",
+ StyleBox[" we can then simplify the previous equation as follows:", "Text"]
+}], "Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.6894245839951077`*^9, 3.689424772959209*^9}, {
+  3.6894265157794733`*^9, 3.689426544966367*^9}},
+ FormatType->"TextForm"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"P", "=", "1"}], "\[IndentingNewLine]", 
+ RowBox[{"M", "=", "0.5"}], "\[IndentingNewLine]", 
+ RowBox[{"FullSimplify", "[", "l", "]"}]}], "Input",
+ CellChangeTimes->{{3.689424996697453*^9, 3.689425007313699*^9}, {
+  3.689425039021378*^9, 3.6894250560275507`*^9}, {3.6894250887093153`*^9, 
+  3.689425091204842*^9}, {3.689425154972193*^9, 3.689425157924471*^9}}],
+
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{{3.689424997397517*^9, 3.68942500818267*^9}, {
+   3.689425044449156*^9, 3.689425057035514*^9}, 3.6894250916887817`*^9, 
+   3.689425164599104*^9, 3.689426152790475*^9, 3.68942662981124*^9, 
+   3.689426734759636*^9, 3.6894267765059147`*^9}],
+
+Cell[BoxData["0.5`"], "Output",
+ CellChangeTimes->{{3.689424997397517*^9, 3.68942500818267*^9}, {
+   3.689425044449156*^9, 3.689425057035514*^9}, 3.6894250916887817`*^9, 
+   3.689425164599104*^9, 3.689426152790475*^9, 3.68942662981124*^9, 
+   3.689426734759636*^9, 3.6894267765159883`*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"0.5`", "\[VeryThinSpace]", "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"0.5`", "\[VeryThinSpace]", "+", 
+      RowBox[{"0.5`", " ", 
+       SqrtBox[
+        SuperscriptBox["100", "e"]]}]}], ")"}], " ", "A", " ", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}]}], "+", 
+   RowBox[{"0.5`", " ", 
+    SqrtBox[
+     RowBox[{
+      SuperscriptBox["100", "e"], " ", 
+      SuperscriptBox[
+       RowBox[{"Sin", "[", 
+        RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}], "2"]}]]}]}], 
+  RowBox[{"1.`", "\[VeryThinSpace]", "+", 
+   SqrtBox[
+    RowBox[{
+     SuperscriptBox["100", "e"], " ", 
+     SuperscriptBox[
+      RowBox[{"Sin", "[", 
+       RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}], "2"]}]]}]]], "Output",
+ CellChangeTimes->{{3.689424997397517*^9, 3.68942500818267*^9}, {
+   3.689425044449156*^9, 3.689425057035514*^9}, 3.6894250916887817`*^9, 
+   3.689425164599104*^9, 3.689426152790475*^9, 3.68942662981124*^9, 
+   3.689426734759636*^9, 3.6894267768166656`*^9}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Modelling colony foraging cost", "Subsection"]], \
+"Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.689425274827025*^9, 3.689425279334524*^9}},
+ FormatType->"TextForm"],
+
+Cell[TextData[{
+ StyleBox["We consider three possible scenarios for the distribution of \
+foraging costs as a function of the number of larvae that have to be fed : \n\
+\n1. \"Proportional\": In this scenario, the cost of foraging grows linearly \
+with the number of larvae. This scenario is biologically unlikely but will \
+serve as a baseline comparison for the performance of the other two \
+scenarios.\n\n2. \"High Cost of Entry\": In this scenario, the cost of \
+foraging increases proportionally faster for smaller numbers of larvae than \
+for larger ones. This corresponds to cases where a minimum number of workers \
+are required before foraging yields significant benefits (for instance where \
+ants have to overpower large prey items or other social insect colonies). \
+This is the scenario likely faced by many ant species with army ant-like \
+biology.\n\n3. \"Resource Exhaustion\": In this scenario, the cost of \
+foraging increases proportionally slower for smaller numbers of larvae than \
+for larger ones. This corresponds to cases where local resources are \
+exploited faster than they are replenished, which forces workers to cover \
+increasingly larger foraging distances as the number of larvae increases. \
+This is the scenario that is likely faced by ant species that mainly forage \
+as scavengers, herbivores, or individual predators, i.e. all ant species \
+except those with army ant-like biology.\n\nFor all three scenarios, we can \
+model the change in foraging cost ", "Text"],
+ "c",
+ StyleBox[" as a function of the number larvae ", "Text"],
+ "l",
+ StyleBox[" with a function of the form:", "Text"]
+}], "Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.689425349193276*^9, 3.689425440924343*^9}, {
+  3.689425799077982*^9, 3.689425821012438*^9}, {3.689426548964823*^9, 
+  3.689426574184206*^9}},
+ FormatType->"TextForm"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"c", "=", 
+  RowBox[{
+   RowBox[{"1", "/", "2"}], " ", 
+   RowBox[{"k", "^", 
+    RowBox[{"(", 
+     RowBox[{"1", "-", "n"}], ")"}]}], " ", 
+   RowBox[{"l", "^", "n"}], " ", 
+   RowBox[{"(", 
+    RowBox[{"1", "+", "n"}], ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.689425851590541*^9, 3.689425852698512*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox["1", "2"], " ", 
+  SuperscriptBox["k", 
+   RowBox[{"1", "-", "n"}]], " ", 
+  RowBox[{"(", 
+   RowBox[{"1", "+", "n"}], ")"}], " ", 
+  SuperscriptBox[
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"0.5`", " ", 
+      RowBox[{"(", 
+       RowBox[{"1", "+", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "+", 
+            SqrtBox[
+             SuperscriptBox["10", 
+              RowBox[{"2", " ", "e"}]]]}], ")"}], " ", 
+          RowBox[{"Sin", "[", 
+           RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}]}], 
+         RowBox[{"1", "+", 
+          SqrtBox[
+           RowBox[{
+            SuperscriptBox["10", 
+             RowBox[{"2", " ", "e"}]], " ", 
+            SuperscriptBox[
+             RowBox[{"Sin", "[", 
+              RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}], "2"]}]]}]]}], 
+       ")"}]}], "+", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", "A"}], ")"}], " ", 
+      RowBox[{"(", 
+       RowBox[{"0.5`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.5`", " ", 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"1", "+", 
+               SqrtBox[
+                SuperscriptBox["10", 
+                 RowBox[{"2", " ", "e"}]]]}], ")"}], " ", 
+             RowBox[{"Sin", "[", 
+              RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}]}], 
+            RowBox[{"1", "+", 
+             SqrtBox[
+              RowBox[{
+               SuperscriptBox["10", 
+                RowBox[{"2", " ", "e"}]], " ", 
+               SuperscriptBox[
+                RowBox[{"Sin", "[", 
+                 RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}], "2"]}]]}]]}], 
+          ")"}]}]}], ")"}]}]}], ")"}], "n"]}]], "Output",
+ CellChangeTimes->{3.68942585405449*^9, 3.6894261530661716`*^9, 
+  3.689426191829194*^9, 3.6894266300975647`*^9, 3.689426735086816*^9, 
+  3.689426776851262*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["where ", "Text"],
+ "k",
+ StyleBox[" is the maximum number of larvae that a colony can have at any \
+given time, and ", "Text"],
+ "n",
+ StyleBox[" is a parameter that determines how the cost of foraging scales \
+with the number of larvae to be fed. When ", "Text"],
+ "n = 1",
+ StyleBox[", the cost of foraging scales linearly with the number of larvae (\
+\"Proportional\" scenario). When ", "Text"],
+ "n > 1",
+ StyleBox[", the cost of foraging grows slower for smaller than for larger \
+numbers of larvae (\"Resource Exhaustion\" scenario). When ", "Text"],
+ "0 \[LessEqual] n < 1",
+ StyleBox[", the cost of foraging grows faster for smaller than for larger \
+numbers of larvae (\"High Cost of Entry\" scenario). \n\nNote that this \
+function is designed to ensure that its integral between ", "Text"],
+ "0",
+ StyleBox[" and ", "Text"],
+ "k",
+ StyleBox[" is the same regardless of the value of ", "Text"],
+ "n",
+ StyleBox[", hence normalizing the foraging cost between all possible values \
+of ", "Text"],
+ "n",
+ StyleBox[".\n\nFor the remainder of this study, we will set ", "Text"],
+ "k = 1",
+ StyleBox[", which allows us to simplify the previous equation as follows :", 
+  "Text"]
+}], "Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.689426340706956*^9, 3.689426509022401*^9}},
+ FormatType->"TextForm"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"k", "=", "1"}], "\[IndentingNewLine]", 
+ RowBox[{"FullSimplify", "[", "c", "]"}]}], "Input",
+ CellChangeTimes->{{3.6894265805956383`*^9, 3.689426583011179*^9}, {
+  3.689426767788426*^9, 3.689426771571125*^9}}],
+
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{3.689426585953899*^9, 3.6894266301380796`*^9, 
+  3.689426735138742*^9, 3.6894267769016113`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox["1", "2"], " ", 
+  RowBox[{"(", 
+   RowBox[{"1", "+", "n"}], ")"}], " ", 
+  SuperscriptBox[
+   RowBox[{"(", 
+    FractionBox[
+     RowBox[{"0.5`", "\[VeryThinSpace]", "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"0.5`", "\[VeryThinSpace]", "+", 
+         RowBox[{"0.5`", " ", 
+          SqrtBox[
+           SuperscriptBox["100", "e"]]}]}], ")"}], " ", "A", " ", 
+       RowBox[{"Sin", "[", 
+        RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}]}], "+", 
+      RowBox[{"0.5`", " ", 
+       SqrtBox[
+        RowBox[{
+         SuperscriptBox["100", "e"], " ", 
+         SuperscriptBox[
+          RowBox[{"Sin", "[", 
+           RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}], "2"]}]]}]}], 
+     RowBox[{"1.`", "\[VeryThinSpace]", "+", 
+      SqrtBox[
+       RowBox[{
+        SuperscriptBox["100", "e"], " ", 
+        SuperscriptBox[
+         RowBox[{"Sin", "[", 
+          RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}], "2"]}]]}]], ")"}], 
+   "n"]}]], "Output",
+ CellChangeTimes->{3.689426585953899*^9, 3.6894266301380796`*^9, 
+  3.689426735138742*^9, 3.689426777073731*^9}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Integrating reproduction strategy and foraging cost", \
+"Subsection"]], "Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.68942680244989*^9, 3.689426807439342*^9}},
+ FormatType->"TextForm"],
+
+Cell[TextData[{
+ StyleBox["To evaluate the performance of a given reproductive strategy under \
+different foraging cost distributions, we calculate the total foraging cost \
+(i.e. we integrate the function ", "Text"],
+ "c",
+ StyleBox[" across one entire colony cycle for different values of the \
+relative amplitude ", "Text"],
+ "A",
+ StyleBox[" of the reproductive cycle, the \"squarity exponent\" ", "Text"],
+ "e",
+ StyleBox[" of the reproductive cycle, and the foraging cost scaling \
+parameter ", "Text"],
+ "n",
+ StyleBox[".", "Text"]
+}], "Input",
+ Evaluatable->False,
+ CellChangeTimes->{{3.689426827600748*^9, 3.689426894871895*^9}},
+ FormatType->"TextForm"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Integrate", "[", 
+  RowBox[{"c", ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"t", ",", " ", "0", ",", " ", "1"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.689426922220183*^9, 3.689426935731546*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  SubsuperscriptBox["\[Integral]", "0", "1"], 
+  RowBox[{
+   FractionBox["1", "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{"1", "+", "n"}], ")"}], " ", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"0.5`", " ", 
+       RowBox[{"(", 
+        RowBox[{"1", "+", 
+         FractionBox[
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"1", "+", 
+             SqrtBox[
+              SuperscriptBox["10", 
+               RowBox[{"2", " ", "e"}]]]}], ")"}], " ", 
+           RowBox[{"Sin", "[", 
+            RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}]}], 
+          RowBox[{"1", "+", 
+           SqrtBox[
+            RowBox[{
+             SuperscriptBox["10", 
+              RowBox[{"2", " ", "e"}]], " ", 
+             SuperscriptBox[
+              RowBox[{"Sin", "[", 
+               RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}], "2"]}]]}]]}], 
+        ")"}]}], "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "-", "A"}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{"0.5`", "\[VeryThinSpace]", "-", 
+         RowBox[{"0.5`", " ", 
+          RowBox[{"(", 
+           RowBox[{"1", "+", 
+            FractionBox[
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"1", "+", 
+                SqrtBox[
+                 SuperscriptBox["10", 
+                  RowBox[{"2", " ", "e"}]]]}], ")"}], " ", 
+              RowBox[{"Sin", "[", 
+               RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}]}], 
+             RowBox[{"1", "+", 
+              SqrtBox[
+               RowBox[{
+                SuperscriptBox["10", 
+                 RowBox[{"2", " ", "e"}]], " ", 
+                SuperscriptBox[
+                 RowBox[{"Sin", "[", 
+                  RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}], "2"]}]]}]]}], 
+           ")"}]}]}], ")"}]}]}], ")"}], "n"], 
+   RowBox[{"\[DifferentialD]", "t"}]}]}]], "Output",
+ CellChangeTimes->{3.689427022205681*^9}]
+}, Open  ]]
+},
+WindowSize->{640, 751},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 118, 2, 32, "Input"],
+Cell[679, 24, 169, 3, 49, "Input",
+ Evaluatable->False],
+Cell[851, 29, 203, 4, 39, "Input",
+ Evaluatable->False],
+Cell[1057, 35, 313, 9, 51, "Input",
+ Evaluatable->False],
+Cell[CellGroupData[{
+Cell[1395, 48, 2262, 69, 180, "Input"],
+Cell[3660, 119, 1695, 54, 94, "Output"]
+}, Open  ]],
+Cell[5370, 176, 1834, 47, 326, "Input",
+ Evaluatable->False],
+Cell[CellGroupData[{
+Cell[7229, 227, 383, 6, 75, "Input"],
+Cell[7615, 235, 286, 4, 32, "Output"],
+Cell[7904, 241, 289, 4, 32, "Output"],
+Cell[8196, 247, 1039, 28, 71, "Output"]
+}, Open  ]],
+Cell[9250, 278, 195, 4, 39, "Input",
+ Evaluatable->False],
+Cell[9448, 284, 1849, 30, 470, "Input",
+ Evaluatable->False],
+Cell[CellGroupData[{
+Cell[11322, 318, 330, 10, 32, "Input"],
+Cell[11655, 330, 1970, 59, 149, "Output"]
+}, Open  ]],
+Cell[13640, 392, 1334, 33, 287, "Input",
+ Evaluatable->False],
+Cell[CellGroupData[{
+Cell[14999, 429, 234, 4, 54, "Input"],
+Cell[15236, 435, 143, 2, 32, "Output"],
+Cell[15382, 439, 1118, 33, 74, "Output"]
+}, Open  ]],
+Cell[16515, 475, 215, 4, 39, "Input",
+ Evaluatable->False],
+Cell[16733, 481, 663, 17, 110, "Input",
+ Evaluatable->False],
+Cell[CellGroupData[{
+Cell[17421, 502, 225, 5, 32, "Input"],
+Cell[17649, 509, 1945, 58, 183, "Output"]
+}, Open  ]]
+}
+]
+*)
+
