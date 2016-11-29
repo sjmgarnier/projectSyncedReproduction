@@ -1,0 +1,365 @@
+---
+title: "Methods and Results"
+author: "Simon Garnier"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    css: custom.css
+    fig_caption: yes
+    number_sections: yes
+    theme: cosmo
+    toc: yes
+---
+
+--- 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, 'setup', message=FALSE}
+# Load libraries
+if (!require(pacman))
+  install.packages("pacman")
+  
+p_load("ggplot2", "cowplot", "dplyr", "RColorBrewer", "viridis")
+p_load_gh("swarm-lab/projectSyncedReproduction")
+
+# Create pretty colorblind friendly palette
+cbf <- brewer.pal(8, "Dark2")
+```
+
+# Methods
+
+## Modelling colony reproductive strategy
+
+The relative number $l$ of larvae in the colony at time $t$ is modeled as a function of 
+the form: 
+
+$$ l(t) = (1-A) \left(M-M \left(\frac{\left(\sqrt{10^{2 e}}+1\right) \sin \left(\frac{2 \pi  t}{P}\right)}{\sqrt{10^{2 e} \sin ^2\left(\frac{2 \pi  t}{P}\right)}+1}+1\right)\right)+M \left(\frac{\left(\sqrt{10^{2 e}}+1\right) \sin \left(\frac{2 \pi  t}{P}\right)}{\sqrt{10^{2 e} \sin ^2\left(\frac{2 \pi  t}{P}\right)}+1}+1\right) $$
+
+where $M$ represents the average of the periodical wave, $P$ its period, and $A$ 
+its amplitude. The amplitude $A$ is relative to the average $M$ of the periodical 
+wave. When $A = 1$ the minimum value of the wave is 0 and the maximum is $2 M$. 
+When $A = 0$ the wave is flat (i.e. its minimum and maximum values are both 
+equal to the average of the wave). The exponent $e$ control the degree of 
+"squarity" of the wave. Positive values of $e$ return a more square-like wave 
+while negative values return a more sine-like wave. This allows us to control 
+how smooth the reproductive cycle is, in other words, how gradual or abrupt the 
+transitions between brood care and reproductive phases are.
+
+For the remainder of this study, we will arbitrarily set the value of $P$, i.e. 
+the length of the reproductive cycle, to 1. We will also set the value of $M$, 
+i.e. the average relative number of larvae in the colony, to 0.5. As a 
+consequence, both the absolute length of the reproductive cycle and the absolute 
+number of larvae a colony raises per reproductive cycle are constant across all 
+comparisons. With $P = 1$ and $M = 0.5$ we can then simplify the previous equation 
+as follows:
+
+$$ l(t) = \frac{A \left(\sqrt{100^e}+1\right) \sin \left(2 \pi  t\right)+\sqrt{100^e \sin ^2\left(2 \pi  t\right)}+1}{2 \left(\sqrt{100^e \sin ^2\left(2 \pi  t\right)}+1\right)} $$
+
+Figure 2 shows the effect of varying either the amplitude $A$, or the "squarity 
+exponent" $e$ on the temporal dynamics of the relative number of larvae present 
+in the colony across the reproductive cycle.
+ 
+---
+
+```{r, "figure_2", cache=TRUE, echo=FALSE, dpi=300, fig.height=4, fig.width=8}
+g1 <- ggplot(data.frame(t = c(0, 3)), aes(t)) +
+  stat_function(fun = lt, geom = "line", aes(color = "A = 0; "), size = 1 / 2,
+                args = list(A = 0, M = .5, P = 1, e = -10), n = 10000) +
+  stat_function(fun = lt, geom = "line", aes(color = "A = 0.5; "), size = 1 / 2 ,
+                args = list(A = 0.5, M = .5, P = 1, e = -10), n = 10000) +
+  stat_function(fun = lt, geom = "line", aes(color = "A = 1"), size = 1 / 2,
+                args = list(A = 1, M = .5, P = 1, e = -10), n = 10000) +
+  xlab("Reproductive cycle") + ylab("Relative number of larvae") + 
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top", plot.margin = unit(c(0.0, 0.05, 0.0, 0.05), "npc")) +
+  scale_color_manual(values = c("A = 0; " = cbf[1], "A = 0.5; " = cbf[2], "A = 1" = cbf[3]), 
+                     name = "")
+
+g2 <- ggplot(data.frame(t = c(0, 3)), aes(t)) +
+  stat_function(fun = lt, geom = "line", aes(color = "e = 2; "), size = 1 / 2,
+                args = list(A = 1, M = .5, P = 1, e = 2), n = 10000) +
+  stat_function(fun = lt, geom = "line", aes(color = "e = 1; "), size = 1 / 2,
+                args = list(A = 1, M = .5, P = 1, e = 1), n = 10000) +
+  stat_function(fun = lt, geom = "line", aes(color = "e = -2"), size = 1 / 2,
+                args = list(A = 1, M = .5, P = 1, e = -2), n = 10000) +
+  xlab("Reproductive cycle") + ylab("Relative number of larvae") + 
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top", plot.margin = unit(c(0.0, 0.05, 0.0, 0.05), "npc")) +
+  scale_color_manual(values = c("e = 2; " = cbf[1], "e = 1; " = cbf[2], "e = -2" = cbf[3]), 
+                     name = "", breaks = c("e = 2; ", "e = 1; ", "e = -2"))
+
+plot_grid(g1, g2, labels = c("A", "B"))
+```
+<p class="caption">**Figure 2:** Effect of varying **(A)** the amplitude $A$ or **(B)** the "squarity exponent" $e$ on the temporal dynamics of the relative number of larvae present in the colony across the reproductive cycle.</p>
+
+---
+
+[Back to top]("#")
+
+---
+
+## Modelling colony foraging cost
+
+We consider three possible scenarios for the distribution of foraging costs as a 
+function of the number of larvae that have to be fed:
+
+1. **"Proportional":** In this scenario, the cost of foraging grows linearly with 
+the number of larvae. This scenario is biologically unlikely but will serve as a 
+baseline comparison for the performance of the other two scenarios.
+
+2. **"High Cost of Entry":** In this scenario, the cost of foraging increases 
+proportionally faster for smaller numbers of larvae than for larger ones. This 
+corresponds to cases where a minimum number of workers are required before 
+foraging yields significant benefits (for instance where ants have to overpower 
+large prey items or other social insect colonies). This is the scenario likely 
+faced by many ant species with army ant-like biology.
+
+3. **"Resource Exhaustion":** In this scenario, the cost of foraging increases 
+proportionally slower for smaller numbers of larvae than for larger ones. This 
+corresponds to cases where local resources are exploited faster than they are 
+replenished, which forces workers to cover increasingly larger foraging 
+distances as the number of larvae increases. This is the scenario that is likely 
+faced by ant species that mainly forage as scavengers, herbivores, or individual 
+predators, i.e. all ant species except those with army ant-like biology.
+
+For all three scenarios, we can model the change in foraging cost $c$ as a 
+function of the number larvae $l$ with a function of the form:
+
+$$ c(l) = \frac{1}{2} (n+1) k^{1-n} l^n $$
+
+where $k$ is the maximum number of larvae that a colony can have at any given 
+time, and $n$ is a parameter that determines how the cost of foraging scales 
+with the number of larvae to be fed. When $n = 1$, the cost of foraging scales 
+linearly with the number of larvae ("Proportional" scenario). When $n > 1$, the 
+cost of foraging grows slower for smaller than for larger numbers of larvae 
+("Resource Exhaustion" scenario). When $0 \leq n < 1$, the cost of foraging 
+grows faster for smaller than for larger numbers of larvae ("High Cost of Entry" 
+scenario).
+
+Note that this function is designed to ensure that its integral between 0 and 
+$k$ is the same regardless of the value of $n$, hence normalizing the foraging 
+cost between all possible values of $n$.
+
+For the remainder of this study, we will set $k = 1$, which allows us to 
+simplify the previous equation as follows:
+
+$$ c(l) = \frac{1}{2} (n+1) l^n $$
+
+Figure 3 shows the effect of varying $n$ on the shape of the foraging cost 
+function. 
+
+---
+
+```{r, "figure_3", echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE, dpi=300, fig.height=4, fig.width=5}
+ggplot(data.frame(l = c(0, 1)), aes(l)) +
+  stat_function(fun = fc, geom = "line", color = cbf[1], size = 1 / 2,
+                args = list(k = 1, n = 3), n = 10000) +
+  stat_function(fun = fc, geom = "line", color = cbf[2], size = 1 / 2,
+                args = list(k = 1, n = 1), n = 10000) +
+  stat_function(fun = fc, geom = "line", color = cbf[3], size = 1 / 2,
+                args = list(k = 1, n = 1 / 3), n = 10000) +
+  geom_rect(xmin = 1.0025, xmax = Inf, ymin = -Inf, ymax = Inf, fill = "white", color = "white") +
+  annotate("text", x = 1.01, y = 2, size = 3, label = "Resource\nExhaustion\nn = 3", hjust = 0, color = cbf[1]) + 
+  annotate("text", x = 1.01, y = 1, size = 3, label = "Proportional\nn = 1", hjust = 0, color = cbf[2]) + 
+  annotate("text", x = 1.01, y = fc(1, 1, 1 / 3), size = 3,
+           label = "High Cost\nof Entry\nn = 1/3", hjust = 0, color = cbf[3]) + 
+  scale_x_continuous(breaks = seq(0, 1, 0.25), limits = c(0, 1.2)) + 
+  scale_y_continuous(breaks = seq(0, 2, 0.50), limits = c(0, 2.15)) + 
+  coord_fixed(ratio = 0.5) +
+  xlab("Relative number of larvae") + 
+  ylab("Foraging cost") + 
+  theme_minimal(base_size = 12) +
+  theme(axis.title.x = element_text(hjust = 0.35))
+```
+<p class="caption">**Figure 3:** Effect of varying the scaling parameter $n$ on the shape of the foraging cost function. The "Proportional" scenario is obtained with $n = 1$. The "High Cost of Entry" scenario is obtained with $0 \leq n < 1$ ($n = 1/3$ is shown here as an example). Finally, the "Resource Exhaustion" scenario is obtained with $n > 1$ ($n = 3$ is shown here as an example). </p>
+
+---
+
+[Back to top]("#")
+
+---
+
+## Integrating reproduction strategy and foraging cost
+
+To evaluate the performance of a given reproductive strategy under different 
+foraging cost distributions, we calculate the total foraging cost (i.e. we 
+integrate the composite function $c(l(t))$) across one entire colony cycle for 
+different values of the relative amplitude $A$ of the reproductive cycle, the 
+"squarity exponent" $e$  of the reproductive cycle, and the foraging cost 
+scaling parameter $n$. The general shape of the integral function is as follows:
+
+$$ \int c(l(t)) = \frac{1}{2} (n+1) k^{1-n} \int \left((1-A) \left(M-M \left(\frac{\left(\sqrt{10^{2 e}}+1\right) \sin \left(\frac{2 \pi  t}{P}\right)}{\sqrt{10^{2 e} \sin ^2\left(\frac{2 \pi  t}{P}\right)}+1}+1\right)\right)+M \left(\frac{\left(\sqrt{10^{2 e}}+1\right) \sin \left(\frac{2 \pi  t}{P}\right)}{\sqrt{10^{2 e} \sin ^2\left(\frac{2 \pi  t}{P}\right)}+1}+1\right)\right)^n \, dt $$
+
+With $P = 1$, $M = 0.5$ and $k = 1$, we can simplify this equation as follows: 
+
+$$ \int c(l(t)) = 2^{-n-1} (n+1) \int \left(\frac{A \left(\sqrt{100^e}+1\right) \sin \left(2 \pi  t\right)+\sqrt{100^e \sin ^2\left(2 \pi  t\right)}+1}{\sqrt{100^e \sin ^2\left(2 \pi  t\right)}+1}\right)^n \, dt$$
+
+[Back to top]("#")
+
+---
+
+## Software
+
+We used Mathematica 11.0.1.0 to simplify the equations and generate the integral
+of the function combining the reproduction strategy with the foraging cost 
+$\int c(l(t))$. 
+
+We used the "integrate" function in the "stats" package (version 3.3.2) in R 
+(version 3.3.2) to calculate the value of the integral $\int c(l(t))$ over 
+various values of the parameters $A$, $e$, and $n$. 
+
+All figures were generated in R using the ggplot2 (version 2.2.0) and cowplot 
+(version 0.7.0) packages.
+
+All code used in this manuscript can be found at 
+https://github.com/swarm-lab/projectSyncedReproduction
+
+[Back to top]("#")
+
+---
+
+# Results
+
+## Cost of foraging under different foraging scenarios and reproductive strategies
+
+Using the integral function described above, we compute the total cost of 
+foraging over a colony cycle for various combinations of the relative amplitude 
+$A$ of the reproductive cycle and the shape parameter $n$ of the foraging cost 
+function. Since we are not interested here in the effect of the shape of the 
+reproductive cycle, which will be treated in the following section, we set its 
+shape to a near-square wave ($e = 10$). Note, however, that the results are 
+qualitatively equivalent with a sine wave. Figure 4 summarizes the results.
+
+---
+
+```{r, message=FALSE, warning=FALSE, "data_figure_4", cache=TRUE, include=FALSE}
+A <- matrix(rep(seq(0, 1, length.out = 201), 201), 201, 201)
+n <- matrix(rep(10 ^ seq(-log10(4), log10(4), length.out = 201), each = 201), 201, 201)
+n_log10 <- log10(n)
+
+dat <- data.frame(A = c(A), n = c(n)) %>%
+  group_by(A, n) %>%
+  do(total_cost = integrate(tc, 0, 1, 
+                            M = 0.5, A = .$A, P = 1, e = 10,
+                            k = 1, n = .$n)$value) %>%
+  mutate(total_cost = unlist(total_cost),
+         n_log10 = log10(n)) %>%
+  ungroup()
+
+m <- matrix(log(dat$total_cost), 201, 201)
+g <- approxGradient(m)
+
+A_small <- t(A)[seq(5, 201, 5), ]
+A_small <- A_small[, seq(5, 201, 5)]
+n_small <- t(n_log10)[seq(5, 201, 5), ]
+n_small <- n_small[, seq(5, 201, 5)]
+
+r <- g$r / sqrt(g$r ^ 2 + g$c ^ 2)
+c <- g$c / sqrt(g$r ^ 2 + g$c ^ 2)
+
+x_end <- t(A) - r / 40
+x_end <- x_end[seq(5, 201, 5), ]
+x_end <- x_end[, seq(5, 201, 5)]
+
+y_end <- t(n_log10) - c / 40
+y_end <- y_end[seq(5, 201, 5), ]
+y_end <- y_end[, seq(5, 201, 5)]
+
+gradient_dat1 <- data.frame(x = c(A_small), y = c(n_small), 
+                           x_end = c(x_end), y_end = c(y_end))
+```
+
+```{r, "figure_4", cache=TRUE, echo=FALSE, dpi=300, fig.height=4, fig.width=6}
+ggplot() +
+  geom_tile(data = dat, aes(x = A, y = n_log10, fill = log(total_cost))) + 
+  stat_contour(data = dat, aes(x = A, y = n_log10, z = log(total_cost)), 
+               color = "#FFFFFF50", bins = 25) +
+  geom_hline(yintercept = 0, color = "#FFFFFF", linetype = 2) +
+  geom_segment(data = gradient_dat1,
+               aes(x = x, y = y, xend = x_end, yend = y_end),
+               arrow = arrow(length = unit(0.005, "npc")), 
+               color = "#FFFFFF50") +
+  scale_y_continuous(breaks = log10(c(1/4, 1/3, 1/2, 3/4, 1, 4/3, 2, 3, 4)),
+                     labels = c("1/4", "1/3", "1/2", "3/4", "1", "4/3", "2", "3", "4")) +
+  coord_cartesian(xlim = c(0, 1), ylim = c(-0.61, 0.61)) +
+  xlab("Relative amplitude A") + ylab("Shape parameter n") +
+  scale_fill_viridis(name = "log(total cost)") + 
+  theme_minimal(base_size = 12)
+```
+<p class="caption">**Figure 4:** Total foraging cost over a reproductive cycle 
+for various combinations of the relative amplitude $A$ of the reproductive cycle 
+and the shape parameter $n$ of the foraging cost function. Values of $n$ above 
+the dashed line (which indicates the “Proportional” scenario) correspond to 
+“Resource Exhaustion” scenarios, while values below the dashed line correspond 
+to “High Cost of Entry” scenarios. Isolines (white contour lines) represent 
+points in the parameter space with constant value, and gradient vectors (white 
+arrows) represent the direction, but not the intensity of the local gradient.</p>
+
+---
+
+When the foraging cost function corresponds to a “Resource Exhaustion” scenario 
+($n > 1$), the lowest total foraging cost is obtained by a non-phasic 
+reproductive strategy that distributes the number of larvae produced by the 
+colony uniformly in time (i.e. $A = 0$; see top left part of Figure 4).
+
+On the contrary, when the foraging cost function corresponds to a “High Cost of 
+Entry” scenario ($0 \leq n < 1$), the total foraging cost decreases with 
+periodical variation in the number of larvae produced by the colony. Lower costs 
+are achieved for larger oscillation amplitudes, and colonies perform best under 
+the most extreme phasic reproductive strategy in terms of oscillation amplitude 
+(i.e. $A = 1$; see bottom right part of Figure 4).
+
+---
+
+[Back to top]("#")
+
+---
+
+## Effect of smoothness of phase transitions
+
+Here we test the effect of abrupt phase transitions in which all larvae hatch 
+and pupate at the exact same time (i.e. a square wave cycle) versus smooth phase 
+transitions in which larvae hatch and pupate around an average time (i.e. a sine 
+wave cycle) in a "High Cost of Entry" scenario. We do not test this effect in a 
+“Resource Exhaustion” scenario because the results in the previous section show 
+that a perfectly non-phasic reproductive strategy is favored in this case.
+
+Using the integral function described above, we compute the total cost of 
+foraging over a reproductive cycle for different values of the cycle’s "squarity 
+exponent" $e$. We set $A$ to 1, i.e. a cycle with maximum oscillation intensity, 
+and $n$ to 1/4, i.e. a "High Cost of Entry" scenario. Note that results are 
+qualitatively similar for any combination of $A > 0$ and $0 < n < 1$. Figure 5 
+summarizes the results.
+
+---
+
+```{r, message=FALSE, warning=FALSE, "data_figure_5", cache=TRUE, include=FALSE}
+dat <- expand.grid(e = seq(-5, 10, length.out = 1000)) %>%
+  group_by(e) %>%
+  do(total_cost = integrate(tc, 0, 1, 
+                            M = 0.5, A = 1, P = 1, e = .$e, 
+                            k = 1, n = 1 / 4)$value) %>%
+  mutate(total_cost = unlist(total_cost))
+```  
+
+```{r, echo=FALSE, fig.height=4, fig.width=5, "figure_5", cache=TRUE, dpi=300}
+ggplot(dat, aes(x = e, y = total_cost)) + 
+  geom_path(size = 1) + 
+  xlab("Squarity exponent e") + ylab("Total foraging cost") +
+  theme_minimal(base_size = 12) 
+```
+<p class="caption">**Figure 5:** Effect of the smoothness of phase transitions 
+(determined by the “squarity exponent” $e$) on the total foraging cost over a 
+reproductive cycle for colonies in a "High Cost of Entry" foraging scenario.</p>
+
+---
+
+The total cost of foraging decreases with the value of the "squarity exponent" 
+$e$, indicating that abrupt phase transitions are more beneficial than smooth 
+phase transitions for colonies experiencing a "High Cost of Entry" foraging 
+scenario.
+
+[Back to top]("#")
+
+---
+
+

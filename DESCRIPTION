@@ -1,0 +1,22 @@
+Package: projectSyncedReproduction
+Type: Package
+Title: Accompanying Package for Garnier and Kronauer Submitted
+Version: 1.0.0
+Author: Simon Garnier
+Maintainer: Simon Garnier <garnier@njit.edu>
+Description: This package contains the accompanying material and code for the 
+    manuscript entitled "The Adaptive Significance of Phasic Colony Cycles in 
+    Army Ants" by Simon Garnier and Daniel Kronauer. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    mmand (>= 1.4.1)
+Suggests:
+    ggplot2 (>= 2.2.0),
+    cowplot (>= 0.7.0),
+    dplyr (>= 0.5.0),
+    RColorBrewer (>= 1.1-2),
+    viridis (>= 0.3.4),
+    pacman (>= 0.4.1)
+RoxygenNote: 5.0.1
