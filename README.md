@@ -21,7 +21,7 @@ notebook can be found in the "R/" folder.
 
 The code for simplifying the equations and generating the integral of the 
 function combining the reproductive strategy with the foraging cost can be found
-as a Mathematica Notebook in the "methematica/" folder. 
+as a Mathematica Notebook in the "mathematica/" folder. 
 
 
 
